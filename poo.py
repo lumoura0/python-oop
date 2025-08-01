@@ -10,6 +10,6 @@ class Pessoa:
         print(f"Olá, meu nome é {self.nome} e tenho {self.idade} anos.")
 
 # Criando uma instância da classe Pessoa
-pessoa1 = Pessoa("João", 30)
+pessoa1 = Pessoa("Shiro", 22)
 # Chamando o método apresentar
 pessoa1.apresentar()
