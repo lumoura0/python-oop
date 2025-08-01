@@ -61,3 +61,33 @@ print(f"Saldo inicial: {conta.consultar_saldo()}")
 conta.depositar(500)
 conta.sacar(200)
 print(f"Saldo final: {conta.consultar_saldo()}")
+
+
+print("\nExemplo de Abstração")
+from abc import ABC, abstractmethod
+
+class Veiculo(ABC):
+    @abstractmethod
+    def ligar(self):
+        pass
+    
+    @abstractmethod
+    def desligar(self):
+        pass
+
+class Carro(Veiculo):
+    def __init__(self) -> None:
+        pass
+    
+    def ligar(self):
+        # Simula o processo de ligar o carro
+        return "Carro ligado."
+    
+    def desligar(self):
+        # Simula o processo de desligar o carro
+        return "Carro desligado."
+
+
+carro_amarelo = Carro()
+print(carro_amarelo.ligar())
+print(carro_amarelo.desligar())
