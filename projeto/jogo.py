@@ -40,6 +40,12 @@ class Heroi(Personagem):
     
     def exibir_detalhes(self):
         return f"{super().exibir_detalhes()}, \nHabilidade: {self.get_habilidade()}\n"
+    
+    def ataque_especial(self, alvo):
+        """ Método para ataque especial do herói. """
+        dano = self.get_nivel() * 4
+        alvo.receber_ataque(dano)
+        print(f"{self.get_nome()} usa {self.get_habilidade()} em {alvo.get_nome()} causando {dano} de dano!")
 
 class Inimigo(Personagem):
     def __init__(self, nome, vida, nivel, tipo):
@@ -72,8 +78,15 @@ class Jogo:
             escolha = input("Escolha (1 - Ataque Normal, 2 - Ataque Especial): ")
             if escolha == "1":
                 self.heroi.atacar(self.inimigo)
+            elif escolha == "2":
+                self.heroi.ataque_especial(self.inimigo)
             else:
                 print("Escolha inválida! Escolha novamente.")
+            
+            if self.inimigo.get_vida() > 0:
+                # Inimigo ataca o herói
+                print(f"{self.inimigo.get_nome()} ataca de volta!")
+                self.inimigo.atacar(self.heroi)
         
         if self.heroi.get_vida() > 0:
             print(f"{self.heroi.get_nome()} venceu a batalha!")
