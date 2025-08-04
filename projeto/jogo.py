@@ -17,6 +17,18 @@ class Personagem:
     
     def exibir_detalhes(self):
         return f"Nome: {self.get_nome()}, \nVida: {self.get_vida()}, \nNível: {self.get_nivel()}"
+    
+    def receber_ataque(self, dano):
+        self.__vida -= dano
+        if self.__vida < 0:
+            self.__vida = 0
+
+    def atacar(self, alvo):
+        """ Método para atacar o alvo. """
+        dano = self.__nivel * 2
+        alvo.receber_ataque(dano)
+        print(f"{self.get_nome()} ataca {alvo.get_nome()} causando {dano} de dano!")
+
 
 class Heroi(Personagem):
     def __init__(self, nome, vida, nivel, habilidade):
@@ -39,13 +51,14 @@ class Inimigo(Personagem):
     
     def exibir_detalhes(self):
         return f"{super().exibir_detalhes()},\nTipo: {self.get_tipo()}\n"
+    
 
 
 class Jogo:
     """Classe orquestradora do jogo."""
     def __init__(self):
-        self.heroi = Heroi(nome="Guerreiro", vida=100, nivel=1, habilidade="Ataque Poderoso")
-        self.inimigo = Inimigo(nome="Orc", vida=80, nivel=1, tipo="Besta")
+        self.heroi = Heroi(nome="Guerreiro", vida=80, nivel=5, habilidade="Ataque Poderoso")
+        self.inimigo = Inimigo(nome="Orc", vida=40, nivel=3, tipo="Besta")
 
     def iniciar_batalha(self):    
         """ Fazer a gestão da batalha entre o herói e o inimigo. """
@@ -57,6 +70,15 @@ class Jogo:
             
             input("Pressione Enter para atacar...")
             escolha = input("Escolha (1 - Ataque Normal, 2 - Ataque Especial): ")
+            if escolha == "1":
+                self.heroi.atacar(self.inimigo)
+            else:
+                print("Escolha inválida! Escolha novamente.")
+        
+        if self.heroi.get_vida() > 0:
+            print(f"{self.heroi.get_nome()} venceu a batalha!")
+        else:
+            print("Você foi derrotado! Tente novamente.")
 
 # Criar instância do jogo e iniciar a batalha
 jogo = Jogo()
