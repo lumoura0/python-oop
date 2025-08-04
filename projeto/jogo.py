@@ -1,3 +1,4 @@
+import random
 # Personagem: classe mãe
 # Heroi: controlado pelo usuario
 # Inimigo: adversário do usuario
@@ -25,7 +26,7 @@ class Personagem:
 
     def atacar(self, alvo):
         """ Método para atacar o alvo. """
-        dano = self.__nivel * 2
+        dano = random.randint(self.get_nivel() * 2, self.get_nivel() * 4) # baseado no nível do personagem
         alvo.receber_ataque(dano)
         print(f"{self.get_nome()} ataca {alvo.get_nome()} causando {dano} de dano!")
 
@@ -43,7 +44,7 @@ class Heroi(Personagem):
     
     def ataque_especial(self, alvo):
         """ Método para ataque especial do herói. """
-        dano = self.get_nivel() * 4
+        dano = random.randint(self.get_nivel() * 5, self.get_nivel() * 8)
         alvo.receber_ataque(dano)
         print(f"{self.get_nome()} usa {self.get_habilidade()} em {alvo.get_nome()} causando {dano} de dano!")
 
